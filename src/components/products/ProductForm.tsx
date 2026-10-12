@@ -6,7 +6,6 @@ import {
   Upload,
   Plus,
   Trash2,
-  Sparkles,
   Flame,
   Star,
   Layers,
@@ -539,79 +538,78 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
       : 0;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 pb-16">
+    <form onSubmit={handleSubmit} className="space-y-6 pb-16">
       {/* Top Bar Navigation */}
-      <div className="flex items-center justify-between border-b border-[#1f2128] pb-6">
-        <div className="flex items-center gap-4">
-          <button
-            type="button"
-            onClick={() => router.push('/products')}
-            className="p-2 rounded-xl bg-[#14161f] border border-[#232634] text-zinc-400 hover:text-white transition"
-          >
-            <ArrowLeft className="w-4 h-4" />
-          </button>
-          <div>
-            <span className="text-[11px] font-mono uppercase tracking-widest text-[#e5c158] font-bold">
-              {isEdit ? 'PRODUCT MODIFICATION' : 'NEW LUXURY DROP'}
-            </span>
-            <h1 className="text-2xl font-extrabold text-white tracking-tight">
-              {isEdit ? `Edit: ${initialData?.title}` : 'Create New Product Drop'}
-            </h1>
-          </div>
-        </div>
-
+      <div className="flex items-center justify-between border-b border-slate-800/80 pb-5">
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={() => router.push('/products')}
-            className="px-4 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-semibold text-xs transition"
+            className="p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 text-slate-400 hover:text-white transition"
+          >
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+          <div>
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-indigo-400">
+              {isEdit ? 'Product Management' : 'Product Catalog'}
+            </span>
+            <h1 className="text-xl md:text-2xl font-bold text-white tracking-tight">
+              {isEdit ? `Edit: ${initialData?.title}` : 'Add New Product'}
+            </h1>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2.5">
+          <button
+            type="button"
+            onClick={() => router.push('/products')}
+            className="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-xs transition"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#f5d376] to-[#e5c158] hover:from-[#fbe294] hover:to-[#edd06f] text-black font-bold text-xs tracking-wider uppercase transition shadow-lg shadow-[#e5c158]/20 disabled:opacity-50 cursor-pointer"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs transition shadow-sm shadow-indigo-600/20 disabled:opacity-50 cursor-pointer"
           >
             {loading ? (
-              <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+              <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
             ) : (
               <>
-                <Sparkles className="w-4 h-4" />
-                <span>{isEdit ? 'Save Changes' : 'Publish Product'}</span>
+                <Check className="w-3.5 h-3.5" />
+                <span>{isEdit ? 'Save Changes' : 'Save Product'}</span>
               </>
             )}
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left 2 Cols: Main Info, Specs, Variants, Images */}
-        <div className="lg:col-span-2 space-y-8">
+        <div className="lg:col-span-2 space-y-6">
           {/* Card 1: Core Details */}
-          <div className="bg-[#121318] border border-[#222533] rounded-2xl p-6 space-y-5">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-[#e5c158] flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#e5c158]" />
-              Core Information
+          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-200">
+              Basic Information
             </h2>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
                 Product Title *
               </label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => handleTitleChange(e.target.value)}
-                placeholder="e.g. Rolex Submariner Date 41mm 'Hulk' Green Dial"
+                placeholder="e.g. Classic Automatic Watch 41mm Black Dial"
                 required
-                className="w-full px-4 py-3 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white text-sm placeholder-zinc-600 focus:outline-none focus:border-[#e5c158] transition"
+                className="w-full px-3.5 py-2.5 rounded-lg bg-slate-950/40 border border-slate-800 text-white text-sm placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition"
               />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                <label className="block text-xs font-medium text-slate-300 mb-1.5">
                   URL Slug
                 </label>
                 <input
@@ -619,22 +617,22 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                   value={slug}
                   onChange={(e) => setSlug(slugify(e.target.value))}
                   placeholder="auto-generated-slug"
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-zinc-300 text-xs font-mono focus:outline-none focus:border-[#e5c158] transition"
+                  className="w-full px-3.5 py-2 rounded-lg bg-slate-950/40 border border-slate-800 text-slate-300 text-xs font-mono focus:outline-none focus:border-indigo-500 transition"
                 />
               </div>
 
               <div>
                 <div className="flex items-center justify-between mb-1.5">
-                  <label className="block text-xs font-semibold text-zinc-300">
+                  <label className="block text-xs font-medium text-slate-300">
                     Category *
                   </label>
                   <button
                     type="button"
                     onClick={() => setShowCategoryModal(true)}
-                    className="text-[11px] text-[#e5c158] hover:underline flex items-center gap-1 cursor-pointer"
+                    className="text-[11px] text-indigo-400 hover:text-indigo-300 flex items-center gap-1 cursor-pointer font-medium"
                   >
                     <PlusCircle className="w-3 h-3" />
-                    <span>+ Create Category</span>
+                    <span>+ Add Category</span>
                   </button>
                 </div>
                 <select
@@ -644,7 +642,7 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                     const selected = categories.find((c) => c.id === e.target.value);
                     if (selected) applyCategoryPreset(selected.slug);
                   }}
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white text-xs focus:outline-none focus:border-[#e5c158] transition"
+                  className="w-full px-3.5 py-2 rounded-lg bg-slate-950/40 border border-slate-800 text-white text-xs focus:outline-none focus:border-indigo-500 transition"
                 >
                   <option value="">Select Category</option>
                   {categories.map((c) => (
@@ -658,20 +656,20 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
 
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="block text-xs font-semibold text-zinc-300">Brand</label>
+                <label className="block text-xs font-medium text-slate-300">Brand</label>
                 <button
                   type="button"
                   onClick={() => setShowBrandModal(true)}
-                  className="text-[11px] text-[#e5c158] hover:underline flex items-center gap-1"
+                  className="text-[11px] text-indigo-400 hover:text-indigo-300 flex items-center gap-1 font-medium"
                 >
                   <PlusCircle className="w-3 h-3" />
-                  <span>+ Create Brand</span>
+                  <span>+ Add Brand</span>
                 </button>
               </div>
               <select
                 value={brandId}
                 onChange={(e) => setBrandId(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white text-xs focus:outline-none focus:border-[#e5c158] transition"
+                className="w-full px-3.5 py-2 rounded-lg bg-slate-950/40 border border-slate-800 text-white text-xs focus:outline-none focus:border-indigo-500 transition"
               >
                 <option value="">Select Brand (Optional)</option>
                 {brands.map((b) => (
@@ -683,37 +681,37 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
-                Detailed Product Description
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
+                Product Description
               </label>
               <textarea
                 rows={4}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Mention 1:1 superclone craftsmanship, materials, movement calibre, inclusions, etc."
-                className="w-full px-4 py-3 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white text-xs placeholder-zinc-600 focus:outline-none focus:border-[#e5c158] transition"
+                placeholder="Describe product highlights, materials, movement specifications, and packaging inclusions..."
+                className="w-full px-3.5 py-2.5 rounded-lg bg-slate-950/40 border border-slate-800 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition"
               />
             </div>
           </div>
 
-          {/* Card 2: Cloudinary & Media Gallery */}
-          <div className="bg-[#121318] border border-[#222533] rounded-2xl p-6 space-y-5">
+          {/* Card 2: Media Gallery */}
+          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-sm font-bold uppercase tracking-wider text-[#e5c158] flex items-center gap-2">
-                  <ImageIcon className="w-4 h-4 text-[#e5c158]" />
-                  Media Gallery & Cloudinary Uploader
+                <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+                  <ImageIcon className="w-4 h-4 text-indigo-400" />
+                  Product Images
                 </h2>
-                <p className="text-xs text-zinc-400 mt-0.5">
-                  High-resolution product visuals. First or highlighted image acts as primary thumbnail.
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Upload images or enter direct URLs. The first image will be used as the catalog cover.
                 </p>
               </div>
-              <span className="text-xs font-mono text-zinc-500">{images.length} Image(s)</span>
+              <span className="text-xs font-mono text-slate-400">{images.length} Image(s)</span>
             </div>
 
             {/* Upload Box & Direct URL bar */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <label className="border-2 border-dashed border-[#2b2f42] hover:border-[#e5c158]/50 rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer bg-[#0a0b0e]/60 transition group">
+              <label className="border-2 border-dashed border-slate-800 hover:border-indigo-500/50 rounded-xl p-5 flex flex-col items-center justify-center text-center cursor-pointer bg-slate-950/30 transition group">
                 <input
                   type="file"
                   multiple
@@ -722,39 +720,39 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                   className="hidden"
                   disabled={uploadingImage}
                 />
-                <div className="w-10 h-10 rounded-xl bg-[#161824] flex items-center justify-center text-[#e5c158] group-hover:scale-110 transition mb-2">
+                <div className="w-9 h-9 rounded-lg bg-slate-800 flex items-center justify-center text-indigo-400 group-hover:scale-105 transition mb-2">
                   {uploadingImage ? (
-                    <div className="w-5 h-5 border-2 border-[#e5c158] border-t-transparent rounded-full animate-spin" />
+                    <div className="w-4 h-4 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
                   ) : (
-                    <Upload className="w-5 h-5" />
+                    <Upload className="w-4 h-4" />
                   )}
                 </div>
-                <span className="text-xs font-bold text-zinc-200 group-hover:text-white">
-                  {uploadingImage ? 'Uploading to Cloudinary...' : 'Upload Photos'}
+                <span className="text-xs font-medium text-slate-200 group-hover:text-white">
+                  {uploadingImage ? 'Uploading image...' : 'Click or Drag to Upload'}
                 </span>
-                <span className="text-[10px] text-zinc-500 mt-1">PNG, JPG, WEBP up to 10MB</span>
+                <span className="text-[10px] text-slate-500 mt-0.5">PNG, JPG, WEBP up to 10MB</span>
               </label>
 
               {/* Direct Image URL input */}
-              <div className="p-4 rounded-2xl bg-[#0a0b0e] border border-[#232635] flex flex-col justify-between">
-                <span className="text-xs font-semibold text-zinc-300">Direct CDN / Web Image URL</span>
+              <div className="p-4 rounded-xl bg-slate-950/30 border border-slate-800 flex flex-col justify-between">
+                <span className="text-xs font-medium text-slate-300">Direct CDN / Web Image URL</span>
                 <div className="flex gap-2 mt-2">
                   <input
                     type="url"
                     value={imageUrlInput}
                     onChange={(e) => setImageUrlInput(e.target.value)}
                     placeholder="https://images.unsplash.com/..."
-                    className="flex-1 px-3 py-2 rounded-xl bg-[#141620] border border-[#282c3d] text-white text-xs placeholder-zinc-600 focus:outline-none focus:border-[#e5c158]"
+                    className="flex-1 px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                   />
                   <button
                     type="button"
                     onClick={handleAddDirectImageUrl}
-                    className="px-3 py-2 rounded-xl bg-[#1b1e2c] text-[#e5c158] font-semibold text-xs border border-[#2d3248] hover:bg-[#23273a] transition"
+                    className="px-3 py-2 rounded-lg bg-slate-800 text-indigo-400 font-medium text-xs border border-slate-700/60 hover:bg-slate-750 transition"
                   >
-                    Attach
+                    Add
                   </button>
                 </div>
-                <span className="text-[10px] text-zinc-500 mt-1">
+                <span className="text-[10px] text-slate-500 mt-1">
                   Cloudinary, Unsplash, or CDN direct links
                 </span>
               </div>
@@ -762,14 +760,14 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
 
             {/* Uploaded Images List */}
             {images.length > 0 && (
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-[#1f2128]">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-slate-800">
                 {images.map((img, idx) => (
                   <div
                     key={idx}
-                    className={`relative rounded-xl overflow-hidden border group bg-[#0a0b0e] aspect-square flex items-center justify-center ${
+                    className={`relative rounded-lg overflow-hidden border group bg-slate-950 aspect-square flex items-center justify-center ${
                       img.is_primary
-                        ? 'border-[#e5c158] ring-2 ring-[#e5c158]/30'
-                        : 'border-[#232635]'
+                        ? 'border-indigo-500 ring-2 ring-indigo-500/30'
+                        : 'border-slate-800'
                     }`}
                   >
                     <img
@@ -779,12 +777,12 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                     />
 
                     {/* Overlay controls */}
-                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex flex-col justify-between p-2">
+                    <div className="absolute inset-0 bg-slate-950/70 opacity-0 group-hover:opacity-100 transition flex flex-col justify-between p-2">
                       <div className="flex justify-end">
                         <button
                           type="button"
                           onClick={() => removeImage(idx)}
-                          className="p-1 rounded-lg bg-rose-500/80 hover:bg-rose-500 text-white"
+                          className="p-1 rounded bg-rose-500/80 hover:bg-rose-500 text-white transition"
                           title="Remove Image"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -794,19 +792,19 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                       <button
                         type="button"
                         onClick={() => setPrimaryImage(idx)}
-                        className={`text-[10px] font-bold py-1 px-2 rounded-lg transition ${
+                        className={`text-[10px] font-medium py-1 px-2 rounded transition ${
                           img.is_primary
-                            ? 'bg-[#e5c158] text-black'
-                            : 'bg-zinc-800 text-zinc-300 hover:bg-[#e5c158] hover:text-black'
+                            ? 'bg-indigo-600 text-white'
+                            : 'bg-slate-800 text-slate-300 hover:bg-indigo-600 hover:text-white'
                         }`}
                       >
-                        {img.is_primary ? 'Primary Thumbnail' : 'Set as Primary'}
+                        {img.is_primary ? 'Cover Image' : 'Set as Cover'}
                       </button>
                     </div>
 
                     {img.is_primary && (
-                      <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-[#e5c158] text-black font-extrabold text-[9px] uppercase shadow">
-                        Primary
+                      <span className="absolute top-2 left-2 px-2 py-0.5 rounded bg-indigo-600 text-white font-medium text-[9px] uppercase shadow-sm">
+                        Cover
                       </span>
                     )}
                   </div>
@@ -816,73 +814,66 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
           </div>
 
           {/* Card 3: Variants & Stock Levels */}
-          <div className="bg-[#121318] border border-[#222533] rounded-2xl p-6 space-y-5">
+          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <h2 className="text-sm font-bold uppercase tracking-wider text-[#e5c158] flex items-center gap-2">
-                  <Layers className="w-4 h-4 text-[#e5c158]" />
-                  Inventory Variants (Sizes, Colors & Editions)
+                <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+                  <Layers className="w-4 h-4 text-indigo-400" />
+                  Inventory Variants & Stock
                 </h2>
-                <p className="text-xs text-zinc-400 mt-0.5">
-                  Manage individual SKUs, stock allocations, and custom price adjustments.
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Manage individual SKUs, stock counts, and optional price differences.
                 </p>
               </div>
 
               {/* Quick Preset Buttons */}
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-[10px] text-zinc-500 uppercase font-mono">Load Presets:</span>
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-[10px] text-slate-500 uppercase font-mono">Presets:</span>
                 <button
                   type="button"
                   onClick={() => applyVariantPresets('dials')}
-                  className="px-2.5 py-1 rounded-lg bg-[#181a24] border border-[#282c3d] text-[11px] text-zinc-300 hover:text-[#e5c158] cursor-pointer"
+                  className="px-2 py-1 rounded bg-slate-800/80 border border-slate-700/60 text-[11px] text-slate-300 hover:text-white hover:border-slate-600 cursor-pointer"
                 >
                   Watch Dials
                 </button>
                 <button
                   type="button"
-                  onClick={() => applyVariantPresets('editions')}
-                  className="px-2.5 py-1 rounded-lg bg-[#181a24] border border-[#282c3d] text-[11px] text-zinc-300 hover:text-[#e5c158] cursor-pointer"
-                >
-                  Box Sets
-                </button>
-                <button
-                  type="button"
                   onClick={() => applyVariantPresets('tshirts')}
-                  className="px-2.5 py-1 rounded-lg bg-[#181a24] border border-[#282c3d] text-[11px] text-zinc-300 hover:text-[#e5c158] cursor-pointer"
+                  className="px-2 py-1 rounded bg-slate-800/80 border border-slate-700/60 text-[11px] text-slate-300 hover:text-white hover:border-slate-600 cursor-pointer"
                 >
                   Apparel Sizes
                 </button>
                 <button
                   type="button"
                   onClick={() => applyVariantPresets('sneakers')}
-                  className="px-2.5 py-1 rounded-lg bg-[#181a24] border border-[#282c3d] text-[11px] text-zinc-300 hover:text-[#e5c158] cursor-pointer"
+                  className="px-2 py-1 rounded bg-slate-800/80 border border-slate-700/60 text-[11px] text-slate-300 hover:text-white hover:border-slate-600 cursor-pointer"
                 >
                   Sneaker Sizes
                 </button>
                 <button
                   type="button"
                   onClick={() => applyVariantPresets('colors')}
-                  className="px-2.5 py-1 rounded-lg bg-[#181a24] border border-[#282c3d] text-[11px] text-zinc-300 hover:text-[#e5c158] cursor-pointer"
+                  className="px-2 py-1 rounded bg-slate-800/80 border border-slate-700/60 text-[11px] text-slate-300 hover:text-white hover:border-slate-600 cursor-pointer"
                 >
                   Colors
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowMatrixModal(true)}
-                  className="px-2.5 py-1 rounded-lg bg-sky-500/10 border border-sky-500/30 text-[11px] text-sky-400 hover:bg-sky-500/20 cursor-pointer flex items-center gap-1"
+                  className="px-2 py-1 rounded bg-indigo-500/10 border border-indigo-500/30 text-[11px] text-indigo-400 hover:bg-indigo-500/20 cursor-pointer flex items-center gap-1"
                 >
                   <Palette className="w-3 h-3" />
-                  <span>Color × Size Matrix</span>
+                  <span>Color × Size</span>
                 </button>
               </div>
             </div>
 
             {/* Variants Table */}
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {variants.map((v, idx) => (
                 <div
                   key={idx}
-                  className="grid grid-cols-1 sm:grid-cols-12 gap-3 p-3 rounded-xl bg-[#0a0b0e] border border-[#232635] items-center"
+                  className="grid grid-cols-1 sm:grid-cols-12 gap-2.5 p-2.5 rounded-lg bg-slate-950/40 border border-slate-800/80 items-center"
                 >
                   <div className="sm:col-span-2">
                     <select
@@ -893,7 +884,7 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                           prev.map((item, i) => (i === idx ? { ...item, variant_type: val } : item))
                         );
                       }}
-                      className="w-full px-2.5 py-2 rounded-lg bg-[#141620] border border-[#2b2f42] text-xs text-zinc-300 capitalize"
+                      className="w-full px-2 py-1.5 rounded-md bg-slate-900 border border-slate-800 text-xs text-slate-200 capitalize"
                     >
                       <option value="size">Size</option>
                       <option value="color">Color</option>
@@ -913,7 +904,7 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                           prev.map((item, i) => (i === idx ? { ...item, name: val } : item))
                         );
                       }}
-                      className="w-full px-3 py-2 rounded-lg bg-[#141620] border border-[#2b2f42] text-xs text-white"
+                      className="w-full px-2.5 py-1.5 rounded-md bg-slate-900 border border-slate-800 text-xs text-white"
                     />
                   </div>
 
@@ -928,13 +919,13 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                           prev.map((item, i) => (i === idx ? { ...item, sku: val } : item))
                         );
                       }}
-                      className="w-full px-3 py-2 rounded-lg bg-[#141620] border border-[#2b2f42] text-xs font-mono text-zinc-300"
+                      className="w-full px-2.5 py-1.5 rounded-md bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300"
                     />
                   </div>
 
                   <div className="sm:col-span-2">
                     <div className="flex items-center gap-1">
-                      <span className="text-[10px] text-zinc-500 uppercase">Stock:</span>
+                      <span className="text-[10px] text-slate-500 uppercase">Stock:</span>
                       <input
                         type="number"
                         min="0"
@@ -947,14 +938,14 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                             )
                           );
                         }}
-                        className="w-full px-2 py-2 rounded-lg bg-[#141620] border border-[#2b2f42] text-xs text-center font-bold text-white"
+                        className="w-full px-2 py-1.5 rounded-md bg-slate-900 border border-slate-800 text-xs text-center font-bold text-white"
                       />
                     </div>
                   </div>
 
-                  <div className="sm:col-span-2 flex items-center justify-between gap-2">
+                  <div className="sm:col-span-2 flex items-center justify-between gap-1.5">
                     <div className="flex items-center gap-1 flex-1">
-                      <span className="text-[10px] text-zinc-500 uppercase">+₹:</span>
+                      <span className="text-[10px] text-slate-500 uppercase">+₹:</span>
                       <input
                         type="number"
                         value={v.price_delta}
@@ -966,13 +957,13 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                             )
                           );
                         }}
-                        className="w-full px-2 py-2 rounded-lg bg-[#141620] border border-[#2b2f42] text-xs text-center font-mono text-zinc-300"
+                        className="w-full px-1.5 py-1.5 rounded-md bg-slate-900 border border-slate-800 text-xs text-center font-mono text-slate-300"
                       />
                     </div>
                     <button
                       type="button"
                       onClick={() => removeVariantRow(idx)}
-                      className="p-1.5 text-zinc-500 hover:text-rose-400 transition"
+                      className="p-1.5 text-slate-500 hover:text-rose-400 transition"
                       title="Remove Variant"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -985,37 +976,37 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
             <button
               type="button"
               onClick={addVariantRow}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-[#171924] border border-[#282c3f] text-xs font-semibold text-[#e5c158] hover:bg-[#202334] transition"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-750 text-xs font-medium text-slate-200 transition"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Add Custom Variant</span>
             </button>
           </div>
 
-          {/* Card 4: Dynamic JSONB Specifications */}
-          <div className="bg-[#121318] border border-[#222533] rounded-2xl p-6 space-y-5">
+          {/* Card 4: Technical Specifications */}
+          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-sm font-bold uppercase tracking-wider text-[#e5c158]">
-                  Technical Specifications (JSONB)
+                <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-200">
+                  Specifications
                 </h2>
-                <p className="text-xs text-zinc-400 mt-0.5">
-                  Attributes rendered on product pages (Movement, Glass, Fabric, UV protection).
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Key details displayed on product pages (Movement, Materials, Fit, Water resistance).
                 </p>
               </div>
               <button
                 type="button"
                 onClick={addSpecRow}
-                className="flex items-center gap-1 text-xs text-[#e5c158] hover:underline"
+                className="flex items-center gap-1 text-xs text-indigo-400 hover:text-indigo-300 font-medium"
               >
                 <Plus className="w-3 h-3" />
-                <span>Add Spec Key</span>
+                <span>Add Specification</span>
               </button>
             </div>
 
-            <div className="space-y-2.5">
+            <div className="space-y-2">
               {specs.map((s, idx) => (
-                <div key={idx} className="flex items-center gap-3">
+                <div key={idx} className="flex items-center gap-2.5">
                   <input
                     type="text"
                     placeholder="Key (e.g. movement, gsm)"
@@ -1026,11 +1017,11 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                         prev.map((item, i) => (i === idx ? { ...item, key: val } : item))
                       );
                     }}
-                    className="w-1/3 px-3 py-2 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-xs font-mono text-zinc-300 focus:outline-none focus:border-[#e5c158]"
+                    className="w-1/3 px-3 py-1.5 rounded-lg bg-slate-950/40 border border-slate-800 text-xs font-mono text-slate-300 focus:outline-none focus:border-indigo-500"
                   />
                   <input
                     type="text"
-                    placeholder="Value (e.g. Clone Calibre 3235, 260 GSM)"
+                    placeholder="Value (e.g. Automatic Movement, 260 GSM)"
                     value={s.value}
                     onChange={(e) => {
                       const val = e.target.value;
@@ -1038,12 +1029,12 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                         prev.map((item, i) => (i === idx ? { ...item, value: val } : item))
                       );
                     }}
-                    className="flex-1 px-3 py-2 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-xs text-white focus:outline-none focus:border-[#e5c158]"
+                    className="flex-1 px-3 py-1.5 rounded-lg bg-slate-950/40 border border-slate-800 text-xs text-white focus:outline-none focus:border-indigo-500"
                   />
                   <button
                     type="button"
                     onClick={() => removeSpecRow(idx)}
-                    className="p-2 text-zinc-500 hover:text-rose-400 transition"
+                    className="p-1.5 text-slate-500 hover:text-rose-400 transition"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
@@ -1053,52 +1044,52 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
           </div>
 
           {/* Card 5: SEO & Search Discovery Metadata */}
-          <div className="bg-[#121318] border border-[#222533] rounded-2xl p-6 space-y-5">
+          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-sm font-bold uppercase tracking-wider text-[#e5c158] flex items-center gap-2">
-                  <Globe className="w-4 h-4 text-[#e5c158]" />
-                  SEO & Search Discovery (Google & Social Previews)
+                <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-200 flex items-center gap-2">
+                  <Globe className="w-4 h-4 text-indigo-400" />
+                  Search Engine Optimization (SEO)
                 </h2>
-                <p className="text-xs text-zinc-400 mt-0.5">
-                  Metadata consumed by Google search crawlers, social cards, and buyer link previews.
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Controls how this product appears on Google and social media sharing.
                 </p>
               </div>
-              <span className="text-xs font-mono text-[#e5c158] bg-[#e5c158]/10 px-2.5 py-1 rounded-full border border-[#e5c158]/20">
-                SEO Ready
+              <span className="text-xs font-medium text-slate-300 bg-slate-800 px-2 py-0.5 rounded border border-slate-700/60">
+                SEO
               </span>
             </div>
 
             {/* Google Search Snippet Preview */}
-            <div className="p-4 rounded-xl bg-[#0a0b0e] border border-[#232635] space-y-1">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-500 block">
-                Google Search Snippet Preview
+            <div className="p-3.5 rounded-lg bg-slate-950/60 border border-slate-800 space-y-1">
+              <span className="text-[10px] font-medium uppercase tracking-wider text-slate-500 block">
+                Google Search Preview
               </span>
-              <div className="text-sky-400 text-sm font-semibold hover:underline truncate">
-                {metaTitle.trim() || title.trim() || 'Rolex Submariner Hulk 41mm'} | BroHood Luxury
+              <div className="text-blue-400 text-sm font-semibold hover:underline truncate">
+                {metaTitle.trim() || title.trim() || 'Product Name'} | BroHood
               </div>
-              <div className="text-emerald-500 text-xs font-mono truncate">
-                https://brohood.in/products/{slug || 'rolex-submariner-hulk'}
+              <div className="text-emerald-400 text-xs font-mono truncate">
+                https://brohood.in/products/{slug || 'product-slug'}
               </div>
-              <p className="text-zinc-400 text-xs line-clamp-2">
+              <p className="text-slate-400 text-xs line-clamp-2">
                 {metaDescription.trim() ||
                   description.slice(0, 160).trim() ||
-                  'Shop 1:1 Master Quality luxury drops with authentic weight, clones, and express India delivery.'}
+                  'Shop genuine premium collections with express delivery across India.'}
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3.5">
               <div>
                 <div className="flex justify-between items-center mb-1.5">
-                  <label className="block text-xs font-semibold text-zinc-300">
-                    SEO Meta Title
+                  <label className="block text-xs font-medium text-slate-300">
+                    SEO Title
                   </label>
                   <span
                     className={`text-[10px] font-mono ${
-                      metaTitle.length > 60 ? 'text-amber-400' : 'text-zinc-500'
+                      metaTitle.length > 60 ? 'text-amber-400' : 'text-slate-500'
                     }`}
                   >
-                    {metaTitle.length} / 60 chars (Recommended)
+                    {metaTitle.length} / 60 chars
                   </span>
                 </div>
                 <input
@@ -1106,18 +1097,18 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                   placeholder="Defaults to product title if left blank..."
                   value={metaTitle}
                   onChange={(e) => setMetaTitle(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white text-xs placeholder-zinc-600 focus:outline-none focus:border-[#e5c158]"
+                  className="w-full px-3.5 py-2 rounded-lg bg-slate-950/40 border border-slate-800 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div>
                 <div className="flex justify-between items-center mb-1.5">
-                  <label className="block text-xs font-semibold text-zinc-300">
+                  <label className="block text-xs font-medium text-slate-300">
                     Meta Description
                   </label>
                   <span
                     className={`text-[10px] font-mono ${
-                      metaDescription.length > 160 ? 'text-amber-400' : 'text-zinc-500'
+                      metaDescription.length > 160 ? 'text-amber-400' : 'text-slate-500'
                     }`}
                   >
                     {metaDescription.length} / 160 chars
@@ -1128,40 +1119,40 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                   placeholder="Compelling 150-160 character description shown on search engine results..."
                   value={metaDescription}
                   onChange={(e) => setMetaDescription(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white text-xs placeholder-zinc-600 focus:outline-none focus:border-[#e5c158]"
+                  className="w-full px-3.5 py-2 rounded-lg bg-slate-950/40 border border-slate-800 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
-                  Focus Keywords / Search Tags (Comma-separated)
+                <label className="block text-xs font-medium text-slate-300 mb-1.5">
+                  Keywords (Comma-separated)
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. rolex clone, superclone watch, hulk submariner, 1:1 master copy"
+                  placeholder="e.g. luxury watch, classic dial, stainless steel"
                   value={keywords}
                   onChange={(e) => setKeywords(e.target.value)}
-                  className="w-full px-4 py-2.5 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white text-xs placeholder-zinc-600 focus:outline-none focus:border-[#e5c158]"
+                  className="w-full px-3.5 py-2 rounded-lg bg-slate-950/40 border border-slate-800 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
                 />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right 1 Col: Pricing, Merchandising Flags, Live Preview */}
-        <div className="space-y-6">
+        {/* Right 1 Col: Pricing, Badges */}
+        <div className="space-y-5">
           {/* Pricing Card */}
-          <div className="bg-[#121318] border border-[#222533] rounded-2xl p-6 space-y-4">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-[#e5c158]">
-              Pricing & Discounts
+          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-200">
+              Pricing
             </h2>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
                 Selling Price (INR ₹) *
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono text-zinc-500 text-sm">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono text-slate-500 text-sm">
                   ₹
                 </span>
                 <input
@@ -1171,17 +1162,17 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                   onChange={(e) => setPrice(e.target.value)}
                   placeholder="11999"
                   required
-                  className="w-full pl-8 pr-4 py-2.5 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white font-mono text-base font-bold focus:outline-none focus:border-[#e5c158] transition"
+                  className="w-full pl-8 pr-3.5 py-2 rounded-lg bg-slate-950/40 border border-slate-800 text-white font-mono text-base font-semibold focus:outline-none focus:border-indigo-500 transition"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
                 Original MRP (Strikethrough)
               </label>
               <div className="relative">
-                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono text-zinc-500 text-sm">
+                <span className="absolute left-3.5 top-1/2 -translate-y-1/2 font-mono text-slate-500 text-sm">
                   ₹
                 </span>
                 <input
@@ -1190,15 +1181,15 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                   value={mrp}
                   onChange={(e) => setMrp(e.target.value)}
                   placeholder="18500"
-                  className="w-full pl-8 pr-4 py-2.5 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-zinc-400 font-mono text-sm focus:outline-none focus:border-[#e5c158] transition"
+                  className="w-full pl-8 pr-3.5 py-2 rounded-lg bg-slate-950/40 border border-slate-800 text-slate-400 font-mono text-sm focus:outline-none focus:border-indigo-500 transition"
                 />
               </div>
             </div>
 
             {calculatedDiscount > 0 && (
-              <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-between text-xs">
+              <div className="p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-between text-xs">
                 <span className="text-emerald-400 font-medium">Customer Savings:</span>
-                <span className="font-bold text-emerald-300 font-mono">
+                <span className="font-semibold text-emerald-300 font-mono">
                   {calculatedDiscount}% OFF (Save {formatINR(Number(mrp) - Number(price))})
                 </span>
               </div>
@@ -1206,33 +1197,33 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
           </div>
 
           {/* Merchandising Toggles Card */}
-          <div className="bg-[#121318] border border-[#222533] rounded-2xl p-6 space-y-4">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-[#e5c158]">
-              Merchandising Badges
+          <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-5 space-y-4">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-200">
+              Visibility & Badges
             </h2>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {/* Active Toggle */}
-              <label className="flex items-center justify-between p-3 rounded-xl bg-[#0a0b0e] border border-[#232635] cursor-pointer">
+              <label className="flex items-center justify-between p-3 rounded-lg bg-slate-950/40 border border-slate-800/80 cursor-pointer">
                 <div>
-                  <span className="text-xs font-bold text-white block">Active on Storefront</span>
-                  <span className="text-[11px] text-zinc-400">Publicly visible for purchase</span>
+                  <span className="text-xs font-medium text-white block">Active on Storefront</span>
+                  <span className="text-[11px] text-slate-400">Visible to buyers in catalog</span>
                 </div>
                 <input
                   type="checkbox"
                   checked={isActive}
                   onChange={(e) => setIsActive(e.target.checked)}
-                  className="w-4 h-4 accent-[#e5c158] cursor-pointer"
+                  className="w-4 h-4 accent-indigo-600 cursor-pointer"
                 />
               </label>
 
               {/* Hot Drop Toggle */}
-              <label className="flex items-center justify-between p-3 rounded-xl bg-[#0a0b0e] border border-[#232635] cursor-pointer">
-                <div className="flex items-center gap-2">
+              <label className="flex items-center justify-between p-3 rounded-lg bg-slate-950/40 border border-slate-800/80 cursor-pointer">
+                <div className="flex items-center gap-2.5">
                   <Flame className="w-4 h-4 text-rose-400" />
                   <div>
-                    <span className="text-xs font-bold text-white block">HOT Drop Badge</span>
-                    <span className="text-[11px] text-zinc-400">Featured in hype banners</span>
+                    <span className="text-xs font-medium text-white block">Featured Product</span>
+                    <span className="text-[11px] text-slate-400">Highlighted on homepage banners</span>
                   </div>
                 </div>
                 <input
@@ -1244,36 +1235,36 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
               </label>
 
               {/* Bestseller Toggle */}
-              <label className="flex items-center justify-between p-3 rounded-xl bg-[#0a0b0e] border border-[#232635] cursor-pointer">
-                <div className="flex items-center gap-2">
-                  <Star className="w-4 h-4 text-[#e5c158]" />
+              <label className="flex items-center justify-between p-3 rounded-lg bg-slate-950/40 border border-slate-800/80 cursor-pointer">
+                <div className="flex items-center gap-2.5">
+                  <Star className="w-4 h-4 text-amber-400" />
                   <div>
-                    <span className="text-xs font-bold text-white block">Bestseller Pill</span>
-                    <span className="text-[11px] text-zinc-400">Top-rated recommended</span>
+                    <span className="text-xs font-medium text-white block">Bestseller Badge</span>
+                    <span className="text-[11px] text-slate-400">Recommended bestsellers list</span>
                   </div>
                 </div>
                 <input
                   type="checkbox"
                   checked={isBestseller}
                   onChange={(e) => setIsBestseller(e.target.checked)}
-                  className="w-4 h-4 accent-[#e5c158] cursor-pointer"
+                  className="w-4 h-4 accent-amber-500 cursor-pointer"
                 />
               </label>
 
               {/* New Arrival Toggle */}
-              <label className="flex items-center justify-between p-3 rounded-xl bg-[#0a0b0e] border border-[#232635] cursor-pointer">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-sky-400" />
+              <label className="flex items-center justify-between p-3 rounded-lg bg-slate-950/40 border border-slate-800/80 cursor-pointer">
+                <div className="flex items-center gap-2.5">
+                  <Tag className="w-4 h-4 text-sky-400" />
                   <div>
-                    <span className="text-xs font-bold text-white block">New Arrival</span>
-                    <span className="text-[11px] text-zinc-400">Included in recent drops</span>
+                    <span className="text-xs font-medium text-white block">New Arrival</span>
+                    <span className="text-[11px] text-slate-400">Flagged as newly added item</span>
                   </div>
                 </div>
                 <input
                   type="checkbox"
                   checked={isNewArrival}
                   onChange={(e) => setIsNewArrival(e.target.checked)}
-                  className="w-4 h-4 accent-sky-400 cursor-pointer"
+                  className="w-4 h-4 accent-sky-500 cursor-pointer"
                 />
               </label>
             </div>
@@ -1283,40 +1274,40 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
 
       {/* Quick Brand Creation Modal */}
       {showBrandModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-[#121318] border border-[#272b3b] rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
-            <div className="flex items-center justify-between pb-3 border-b border-[#1f2128]">
-              <h3 className="text-sm font-bold text-white">Create New Brand</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="bg-slate-900 border border-slate-800 rounded-xl max-w-sm w-full p-5 shadow-2xl relative">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <h3 className="text-sm font-semibold text-white">Create New Brand</h3>
               <button
                 type="button"
                 onClick={() => setShowBrandModal(false)}
-                className="text-zinc-500 hover:text-white"
+                className="text-slate-400 hover:text-white"
               >
                 ✕
               </button>
             </div>
 
-            <div className="py-4 space-y-4">
+            <div className="py-4 space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                <label className="block text-xs font-medium text-slate-300 mb-1.5">
                   Brand Name *
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. Chrome Hearts, Audemars Piguet"
+                  placeholder="e.g. Rolex, Nike, Essentials"
                   value={newBrandName}
                   onChange={(e) => setNewBrandName(e.target.value)}
                   autoFocus
-                  className="w-full px-3 py-2 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white text-xs focus:outline-none focus:border-[#e5c158]"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-950/50 border border-slate-800 text-white text-xs focus:outline-none focus:border-indigo-500"
                 />
               </div>
             </div>
 
-            <div className="flex justify-end gap-2 pt-3 border-t border-[#1f2128]">
+            <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
               <button
                 type="button"
                 onClick={() => setShowBrandModal(false)}
-                className="px-3 py-1.5 rounded-xl bg-zinc-800 text-zinc-300 text-xs font-semibold"
+                className="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 text-xs font-medium hover:bg-slate-700"
               >
                 Cancel
               </button>
@@ -1324,9 +1315,9 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                 type="button"
                 onClick={handleCreateBrand}
                 disabled={creatingBrand || !newBrandName.trim()}
-                className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#f5d376] to-[#e5c158] text-black font-bold text-xs uppercase"
+                className="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs disabled:opacity-50"
               >
-                {creatingBrand ? 'Saving...' : 'Create'}
+                {creatingBrand ? 'Saving...' : 'Create Brand'}
               </button>
             </div>
           </div>
@@ -1335,22 +1326,22 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
 
       {/* Quick Category Creation Modal */}
       {showCategoryModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-[#121318] border border-[#272b3b] rounded-2xl max-w-sm w-full p-6 shadow-2xl relative">
-            <div className="flex items-center justify-between pb-3 border-b border-[#1f2128]">
-              <h3 className="text-sm font-bold text-white">Create New Category</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="bg-slate-900 border border-slate-800 rounded-xl max-w-sm w-full p-5 shadow-2xl relative">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <h3 className="text-sm font-semibold text-white">Create New Category</h3>
               <button
                 type="button"
                 onClick={() => setShowCategoryModal(false)}
-                className="text-zinc-500 hover:text-white cursor-pointer"
+                className="text-slate-400 hover:text-white cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            <div className="py-4 space-y-3.5">
+            <div className="py-4 space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                <label className="block text-xs font-medium text-slate-300 mb-1.5">
                   Category Name *
                 </label>
                 <input
@@ -1359,12 +1350,12 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                   value={newCategoryName}
                   onChange={(e) => setNewCategoryName(e.target.value)}
                   autoFocus
-                  className="w-full px-3 py-2 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white text-xs focus:outline-none focus:border-[#e5c158]"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-950/50 border border-slate-800 text-white text-xs focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1.5">
+                <label className="block text-xs font-medium text-slate-300 mb-1.5">
                   Description (Optional)
                 </label>
                 <input
@@ -1372,16 +1363,16 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                   placeholder="Brief summary of this product collection..."
                   value={newCategoryDescription}
                   onChange={(e) => setNewCategoryDescription(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white text-xs focus:outline-none focus:border-[#e5c158]"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-950/50 border border-slate-800 text-white text-xs focus:outline-none focus:border-indigo-500"
                 />
               </div>
             </div>
 
-            <div className="flex justify-end gap-2 pt-3 border-t border-[#1f2128]">
+            <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
               <button
                 type="button"
                 onClick={() => setShowCategoryModal(false)}
-                className="px-3 py-1.5 rounded-xl bg-zinc-800 text-zinc-300 text-xs font-semibold cursor-pointer"
+                className="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 text-xs font-medium cursor-pointer hover:bg-slate-700"
               >
                 Cancel
               </button>
@@ -1389,9 +1380,9 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                 type="button"
                 onClick={handleCreateCategory}
                 disabled={creatingCategory || !newCategoryName.trim()}
-                className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#f5d376] to-[#e5c158] text-black font-bold text-xs uppercase cursor-pointer disabled:opacity-50"
+                className="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs cursor-pointer disabled:opacity-50"
               >
-                {creatingCategory ? 'Saving...' : 'Create'}
+                {creatingCategory ? 'Saving...' : 'Create Category'}
               </button>
             </div>
           </div>
@@ -1400,46 +1391,46 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
 
       {/* Color x Size Combination Matrix Modal */}
       {showMatrixModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-[#121318] border border-[#272b3b] rounded-2xl max-w-md w-full p-6 shadow-2xl relative space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#1f2128]">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="bg-slate-900 border border-slate-800 rounded-xl max-w-md w-full p-5 shadow-2xl relative space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
               <div>
-                <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Palette className="w-4 h-4 text-[#e5c158]" />
-                  Color × Size Matrix Generator
+                <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+                  <Palette className="w-4 h-4 text-indigo-400" />
+                  Color × Size Matrix
                 </h3>
-                <p className="text-[11px] text-zinc-400 mt-0.5">
-                  Auto-generates individual SKUs & stock for all color-size combinations.
+                <p className="text-[11px] text-slate-400 mt-0.5">
+                  Auto-generates individual variant rows for each color and size.
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setShowMatrixModal(false)}
-                className="text-zinc-500 hover:text-white cursor-pointer"
+                className="text-slate-400 hover:text-white cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            <div className="space-y-3.5">
+            <div className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">
+                <label className="block text-xs font-medium text-slate-300 mb-1">
                   Colors (Comma-separated) *
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. Onyx Black, Vintage White, Olive Green"
+                  placeholder="e.g. Black, White, Olive"
                   value={matrixColors}
                   onChange={(e) => setMatrixColors(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white text-xs focus:outline-none focus:border-[#e5c158]"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-950/50 border border-slate-800 text-white text-xs focus:outline-none focus:border-indigo-500"
                 />
-                <span className="text-[10px] text-zinc-500">
-                  Example: Onyx Black, Sail White, Charcoal
+                <span className="text-[10px] text-slate-500">
+                  Example: Black, White, Navy
                 </span>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">
+                <label className="block text-xs font-medium text-slate-300 mb-1">
                   Sizes (Comma-separated) *
                 </label>
                 <input
@@ -1447,15 +1438,15 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                   placeholder="e.g. S, M, L, XL, XXL (or UK 7, UK 8, UK 9)"
                   value={matrixSizes}
                   onChange={(e) => setMatrixSizes(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white text-xs focus:outline-none focus:border-[#e5c158]"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-950/50 border border-slate-800 text-white text-xs focus:outline-none focus:border-indigo-500"
                 />
-                <span className="text-[10px] text-zinc-500">
+                <span className="text-[10px] text-slate-500">
                   Example: S, M, L, XL, XXL
                 </span>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-zinc-300 mb-1">
+                <label className="block text-xs font-medium text-slate-300 mb-1">
                   Default Stock per Combination
                 </label>
                 <input
@@ -1463,23 +1454,23 @@ export function ProductForm({ initialData, isEdit = false }: ProductFormProps) {
                   min="0"
                   value={matrixStock}
                   onChange={(e) => setMatrixStock(e.target.value)}
-                  className="w-32 px-3 py-2 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white text-xs font-bold focus:outline-none focus:border-[#e5c158]"
+                  className="w-28 px-3 py-1.5 rounded-lg bg-slate-950/50 border border-slate-800 text-white text-xs font-bold focus:outline-none focus:border-indigo-500"
                 />
               </div>
             </div>
 
-            <div className="flex justify-end gap-2 pt-3 border-t border-[#1f2128]">
+            <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
               <button
                 type="button"
                 onClick={() => setShowMatrixModal(false)}
-                className="px-3 py-1.5 rounded-xl bg-zinc-800 text-zinc-300 text-xs font-semibold cursor-pointer"
+                className="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 text-xs font-medium cursor-pointer hover:bg-slate-700"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleGenerateMatrix}
-                className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#f5d376] to-[#e5c158] text-black font-bold text-xs uppercase cursor-pointer"
+                className="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs cursor-pointer"
               >
                 Generate Matrix
               </button>

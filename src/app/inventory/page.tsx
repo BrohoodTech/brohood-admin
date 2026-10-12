@@ -9,7 +9,6 @@ import {
   Filter,
   Plus,
   Minus,
-  Sparkles,
   RefreshCw,
   Package,
   TrendingUp,
@@ -191,54 +190,57 @@ export default function InventoryPage() {
   const outOfStockCount = variants.filter((v) => v.stock_quantity === 0).length;
 
   return (
-    <div className="space-y-6 pb-12">
+    <div className="space-y-6 pb-12 animate-in fade-in duration-150">
       {/* Header and Quick Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1f2128] pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#e5c158] font-bold">
-              LIVE INVENTORY COMMAND
+            <span className="text-[11px] font-semibold uppercase tracking-wider text-indigo-400">
+              Inventory
             </span>
-            <span className="text-zinc-500 font-mono text-xs">({variants.length} Active SKUs)</span>
+            <span className="text-slate-500 font-mono text-xs">({variants.length} Active SKUs)</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white mt-1">
-            Inventory & Variant Manager
+          <h1 className="text-2xl font-bold tracking-tight text-white mt-1">
+            Stock & Inventory
           </h1>
-          <p className="text-xs text-zinc-400 mt-1">
-            Real-time stock adjustment, SKU management, price deltas, and automated low-stock warnings.
+          <p className="text-xs text-slate-400 mt-1">
+            Monitor real-time inventory counts, update variant SKUs, and manage low stock alerts.
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5">
           <button
             onClick={() => handleBulkRestock(10)}
             disabled={bulkRestocking}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-[#e5c158] border border-[#e5c158]/30 text-xs font-bold transition cursor-pointer"
+            type="button"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-slate-300 border border-slate-700/60 text-xs font-medium transition cursor-pointer"
           >
-            <Zap className="w-3.5 h-3.5" />
-            <span>{bulkRestocking ? 'Restocking...' : 'Bulk Restock Low (+10)'}</span>
+            <Zap className="w-3.5 h-3.5 text-amber-400" />
+            <span>{bulkRestocking ? 'Restocking...' : 'Restock Low (+10)'}</span>
           </button>
 
           <button
             onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-[#f5d376] to-[#e5c158] hover:from-[#fbe294] hover:to-[#edd06f] text-black font-bold text-xs tracking-wider uppercase transition shadow-md shadow-[#e5c158]/15 cursor-pointer"
+            type="button"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs transition shadow-sm shadow-indigo-600/20 cursor-pointer"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-3.5 h-3.5" />
             <span>Add Variant</span>
           </button>
         </div>
       </div>
 
       {/* Filter Tabs & Search */}
-      <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-3">
         {/* Tab Switcher */}
-        <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#121318] border border-[#232635] w-full md:w-auto">
+        <div className="flex items-center gap-1 p-1 rounded-xl bg-slate-900/80 border border-slate-800 w-full md:w-auto">
           <button
             onClick={() => setActiveTab('all')}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+            type="button"
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
               activeTab === 'all'
-                ? 'bg-[#1e212d] text-white shadow-sm'
-                : 'text-zinc-400 hover:text-zinc-200'
+                ? 'bg-indigo-600 text-white shadow-sm'
+                : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             All Variants
@@ -246,10 +248,11 @@ export default function InventoryPage() {
 
           <button
             onClick={() => setActiveTab('low')}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition ${
+            type="button"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
               activeTab === 'low'
                 ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
-                : 'text-zinc-400 hover:text-amber-400'
+                : 'text-slate-400 hover:text-amber-400'
             }`}
           >
             <AlertTriangle className="w-3.5 h-3.5" />
@@ -263,10 +266,11 @@ export default function InventoryPage() {
 
           <button
             onClick={() => setActiveTab('out')}
-            className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition ${
+            type="button"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition ${
               activeTab === 'out'
                 ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
-                : 'text-zinc-400 hover:text-rose-400'
+                : 'text-slate-400 hover:text-rose-400'
             }`}
           >
             <span>Out of Stock</span>
@@ -279,22 +283,22 @@ export default function InventoryPage() {
         </div>
 
         {/* Search and Category Filter */}
-        <div className="flex items-center gap-3 w-full md:w-auto">
+        <div className="flex items-center gap-2.5 w-full md:w-auto">
           <form onSubmit={handleSearchSubmit} className="relative flex-1 md:w-64">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
-              placeholder="Filter by SKU or variant name..."
+              placeholder="Search SKU or variant name..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#121318] border border-[#232635] text-white text-xs placeholder-zinc-500 focus:outline-none focus:border-[#e5c158]"
+              className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-slate-950/40 border border-slate-800 text-white text-xs placeholder-slate-500 focus:outline-none focus:border-indigo-500"
             />
           </form>
 
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="bg-[#121318] border border-[#232635] text-zinc-300 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-[#e5c158]"
+            className="bg-slate-950/40 border border-slate-800 text-slate-300 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:border-indigo-500"
           >
             <option value="all">All Categories</option>
             {categories.map((c) => (
@@ -306,41 +310,42 @@ export default function InventoryPage() {
 
           <button
             onClick={loadData}
-            className="p-2 rounded-xl bg-[#121318] border border-[#232635] hover:bg-[#181a24] text-zinc-400 hover:text-white"
-            title="Refresh"
+            type="button"
+            className="p-2 rounded-lg bg-slate-850 border border-slate-800 hover:bg-slate-800 text-slate-400 hover:text-white"
+            title="Reload"
           >
-            <RotateCcw className="w-4 h-4 text-[#e5c158]" />
+            <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
           </button>
         </div>
       </div>
 
       {/* Inventory Grid Table */}
-      <div className="bg-[#121318] border border-[#222533] rounded-2xl overflow-hidden shadow-xl">
+      <div className="bg-slate-900/80 border border-slate-800 rounded-xl overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-[#1f2128] bg-[#0e0f14] text-zinc-400 font-semibold uppercase tracking-wider text-[10px]">
-                <th className="py-3.5 px-4">Product Drop</th>
-                <th className="py-3.5 px-4">Variant Option</th>
-                <th className="py-3.5 px-4">Type</th>
-                <th className="py-3.5 px-4">SKU Code</th>
-                <th className="py-3.5 px-4">Price / Delta</th>
-                <th className="py-3.5 px-4 text-center">Live Stock Control</th>
-                <th className="py-3.5 px-4 text-right">Actions</th>
+              <tr className="border-b border-slate-800 bg-slate-950/50 text-slate-400 font-medium uppercase tracking-wider text-[10px]">
+                <th className="py-2.5 px-3.5">Product</th>
+                <th className="py-2.5 px-3.5">Variant</th>
+                <th className="py-2.5 px-3.5">Type</th>
+                <th className="py-2.5 px-3.5">SKU Code</th>
+                <th className="py-2.5 px-3.5">Price</th>
+                <th className="py-2.5 px-3.5 text-center">Stock Adjustment</th>
+                <th className="py-2.5 px-3.5 text-right">Quick Add</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#1a1c26]">
+            <tbody className="divide-y divide-slate-800/60">
               {loading ? (
                 <tr>
-                  <td colSpan={7} className="py-16 text-center text-zinc-500">
-                    <div className="w-8 h-8 border-2 border-[#e5c158] border-t-transparent rounded-full animate-spin mx-auto mb-2" />
-                    Fetching inventory items...
+                  <td colSpan={7} className="py-16 text-center text-slate-500">
+                    <div className="w-7 h-7 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+                    Loading inventory items...
                   </td>
                 </tr>
               ) : variants.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-16 text-center text-zinc-500">
-                    <Layers className="w-10 h-10 text-zinc-600 mx-auto mb-2" />
+                  <td colSpan={7} className="py-16 text-center text-slate-500">
+                    <Layers className="w-8 h-8 text-slate-600 mx-auto mb-2" />
                     No variant records found matching your filters.
                   </td>
                 </tr>
@@ -351,11 +356,11 @@ export default function InventoryPage() {
                   const prod = v.product;
 
                   return (
-                    <tr key={v.id} className="hover:bg-[#151722] transition group">
+                    <tr key={v.id} className="hover:bg-slate-800/40 transition group">
                       {/* Product Reference */}
-                      <td className="py-3.5 px-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-lg bg-[#1a1d29] border border-[#2b2f42] overflow-hidden shrink-0">
+                      <td className="py-3 px-3.5">
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-9 h-9 rounded-md bg-slate-950 border border-slate-800 overflow-hidden shrink-0 flex items-center justify-center">
                             {prod?.primary_image ? (
                               <img
                                 src={prod.primary_image}
@@ -363,14 +368,14 @@ export default function InventoryPage() {
                                 className="w-full h-full object-cover"
                               />
                             ) : (
-                              <Package className="w-4 h-4 text-zinc-600 m-auto mt-3" />
+                              <Package className="w-4 h-4 text-slate-600" />
                             )}
                           </div>
                           <div className="max-w-xs">
-                            <span className="font-bold text-white block truncate">
+                            <span className="font-medium text-slate-200 block truncate">
                               {prod?.title || 'Unknown Product'}
                             </span>
-                            <span className="text-[10px] text-zinc-500">
+                            <span className="text-[10px] text-slate-500">
                               {prod?.category?.name || 'General'}
                             </span>
                           </div>
@@ -378,46 +383,47 @@ export default function InventoryPage() {
                       </td>
 
                       {/* Variant Name */}
-                      <td className="py-3.5 px-4">
-                        <span className="font-bold text-zinc-200 block">{v.name}</span>
+                      <td className="py-3 px-3.5">
+                        <span className="font-medium text-slate-200 block">{v.name}</span>
                       </td>
 
                       {/* Variant Type */}
-                      <td className="py-3.5 px-4">
-                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
+                      <td className="py-3 px-3.5">
+                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700/60">
                           {v.variant_type}
                         </span>
                       </td>
 
                       {/* SKU */}
-                      <td className="py-3.5 px-4">
-                        <span className="font-mono text-xs text-[#e5c158] bg-[#e5c158]/10 px-2 py-0.5 rounded border border-[#e5c158]/20">
+                      <td className="py-3 px-3.5">
+                        <span className="font-mono text-xs text-slate-300 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700/60">
                           {v.sku}
                         </span>
                       </td>
 
                       {/* Price Delta */}
-                      <td className="py-3.5 px-4 font-mono">
-                        <span className="text-white font-bold">
+                      <td className="py-3 px-3.5 font-mono">
+                        <span className="text-white font-medium">
                           {formatINR((prod?.price || 0) + (v.price_delta || 0))}
                         </span>
                         {v.price_delta !== 0 && (
-                          <span className="block text-[10px] text-zinc-400">
+                          <span className="block text-[10px] text-slate-400">
                             ({v.price_delta > 0 ? `+${formatINR(v.price_delta)}` : formatINR(v.price_delta)})
                           </span>
                         )}
                       </td>
 
                       {/* Live Inline +/- Stock Control */}
-                      <td className="py-3.5 px-4">
-                        <div className="flex items-center justify-center gap-2">
+                      <td className="py-3 px-3.5">
+                        <div className="flex items-center justify-center gap-1.5">
                           <button
                             onClick={() => adjustStock(v.id, v.stock_quantity, -1)}
                             disabled={v.stock_quantity <= 0}
-                            className="w-7 h-7 rounded-lg bg-[#1b1d28] border border-[#292d3f] hover:bg-rose-500/20 hover:text-rose-400 hover:border-rose-500/30 flex items-center justify-center text-zinc-300 transition disabled:opacity-30 cursor-pointer"
+                            type="button"
+                            className="w-6 h-6 rounded bg-slate-800 border border-slate-700/60 hover:bg-slate-700 flex items-center justify-center text-slate-300 transition disabled:opacity-30 cursor-pointer"
                             title="Decrease Stock (-1)"
                           >
-                            <Minus className="w-3.5 h-3.5" />
+                            <Minus className="w-3 h-3" />
                           </button>
 
                           <input
@@ -425,54 +431,57 @@ export default function InventoryPage() {
                             min="0"
                             value={v.stock_quantity}
                             onChange={(e) => handleStockDirectChange(v.id, parseInt(e.target.value) || 0)}
-                            className={`w-14 py-1 text-center font-mono font-bold text-xs rounded-lg border bg-[#0a0b0e] focus:outline-none transition ${
+                            className={`w-14 py-1 text-center font-mono font-semibold text-xs rounded-md border bg-slate-950 focus:outline-none transition ${
                               isOut
                                 ? 'text-rose-400 border-rose-500/40 bg-rose-500/10'
                                 : isLow
                                 ? 'text-amber-400 border-amber-500/40 bg-amber-500/10'
-                                : 'text-emerald-300 border-emerald-500/30 bg-emerald-500/10'
+                                : 'text-slate-100 border-slate-800'
                             }`}
                           />
 
                           <button
                             onClick={() => adjustStock(v.id, v.stock_quantity, 1)}
-                            className="w-7 h-7 rounded-lg bg-[#1b1d28] border border-[#292d3f] hover:bg-emerald-500/20 hover:text-emerald-400 hover:border-emerald-500/30 flex items-center justify-center text-zinc-300 transition cursor-pointer"
+                            type="button"
+                            className="w-6 h-6 rounded bg-slate-800 border border-slate-700/60 hover:bg-slate-700 flex items-center justify-center text-slate-300 transition cursor-pointer"
                             title="Increase Stock (+1)"
                           >
-                            <Plus className="w-3.5 h-3.5" />
+                            <Plus className="w-3 h-3" />
                           </button>
                         </div>
 
                         {/* Status Label */}
                         <div className="text-center mt-1">
                           {isOut ? (
-                            <span className="text-[10px] font-bold text-rose-400 uppercase tracking-wider">
+                            <span className="text-[10px] font-medium text-rose-400 uppercase tracking-wider">
                               Out of Stock
                             </span>
                           ) : isLow ? (
-                            <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">
+                            <span className="text-[10px] font-medium text-amber-400 uppercase tracking-wider">
                               Low Stock ({v.stock_quantity} left)
                             </span>
                           ) : (
-                            <span className="text-[10px] text-zinc-500">In Stock</span>
+                            <span className="text-[10px] text-slate-500">In Stock</span>
                           )}
                         </div>
                       </td>
 
                       {/* Quick Restock Action */}
-                      <td className="py-3.5 px-4 text-right">
-                        <div className="flex items-center justify-end gap-1.5">
+                      <td className="py-3 px-3.5 text-right">
+                        <div className="flex items-center justify-end gap-1">
                           <button
                             onClick={() => adjustStock(v.id, v.stock_quantity, 5)}
-                            className="px-2 py-1 rounded bg-[#1b1e2c] border border-[#2b2f44] text-[10px] font-bold text-zinc-300 hover:text-[#e5c158] hover:border-[#e5c158]/40 transition"
-                            title="Add 5 units instantly"
+                            type="button"
+                            className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60 text-[10px] font-medium text-slate-300 hover:text-white hover:bg-slate-750 transition"
+                            title="Add 5 units"
                           >
                             +5
                           </button>
                           <button
                             onClick={() => adjustStock(v.id, v.stock_quantity, 10)}
-                            className="px-2 py-1 rounded bg-[#1b1e2c] border border-[#2b2f44] text-[10px] font-bold text-zinc-300 hover:text-[#e5c158] hover:border-[#e5c158]/40 transition"
-                            title="Add 10 units instantly"
+                            type="button"
+                            className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60 text-[10px] font-medium text-slate-300 hover:text-white hover:bg-slate-750 transition"
+                            title="Add 10 units"
                           >
                             +10
                           </button>
@@ -489,29 +498,29 @@ export default function InventoryPage() {
 
       {/* Add New Variant Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="bg-[#121318] border border-[#272b3b] rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
-            <div className="flex items-center justify-between pb-3 border-b border-[#1f2128]">
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <Layers className="w-4 h-4 text-[#e5c158]" />
-                Add Variant SKU to Product
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-150">
+          <div className="bg-slate-900 border border-slate-800 rounded-xl max-w-md w-full p-5 shadow-2xl relative">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+                <Layers className="w-4 h-4 text-indigo-400" />
+                Add Variant SKU
               </h3>
               <button
                 type="button"
                 onClick={() => setShowAddModal(false)}
-                className="text-zinc-500 hover:text-white"
+                className="text-slate-400 hover:text-white"
               >
                 ✕
               </button>
             </div>
 
-            <form onSubmit={handleCreateVariant} className="py-4 space-y-4 text-xs">
+            <form onSubmit={handleCreateVariant} className="py-4 space-y-3.5 text-xs">
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">Target Product *</label>
+                <label className="block text-slate-300 font-medium mb-1">Target Product *</label>
                 <select
                   value={selectedProductId}
                   onChange={(e) => setSelectedProductId(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-950/50 border border-slate-800 text-white focus:border-indigo-500"
                 >
                   {products.map((p) => (
                     <option key={p.id} value={p.id}>
@@ -523,11 +532,11 @@ export default function InventoryPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Variant Type</label>
+                  <label className="block text-slate-300 font-medium mb-1">Variant Type</label>
                   <select
                     value={newVarType}
                     onChange={(e) => setNewVarType(e.target.value as any)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-950/50 border border-slate-800 text-white focus:border-indigo-500"
                   >
                     <option value="size">Size</option>
                     <option value="color">Color</option>
@@ -536,65 +545,65 @@ export default function InventoryPage() {
                 </div>
 
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Variant Name *</label>
+                  <label className="block text-slate-300 font-medium mb-1">Variant Name *</label>
                   <input
                     type="text"
                     placeholder="e.g. UK 9 or Black Dial"
                     value={newVarName}
                     onChange={(e) => setNewVarName(e.target.value)}
                     required
-                    className="w-full px-3 py-2 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-950/50 border border-slate-800 text-white focus:border-indigo-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-zinc-300 font-semibold mb-1">SKU Identifier *</label>
+                <label className="block text-slate-300 font-medium mb-1">SKU Identifier *</label>
                 <input
                   type="text"
                   placeholder="e.g. RLX-SUB-BLK-41"
                   value={newVarSku}
                   onChange={(e) => setNewVarSku(e.target.value.toUpperCase())}
                   required
-                  className="w-full px-3 py-2 rounded-xl bg-[#0a0b0e] border border-[#272b3b] font-mono text-zinc-300 uppercase"
+                  className="w-full px-3 py-2 rounded-lg bg-slate-950/50 border border-slate-800 font-mono text-slate-200 uppercase focus:border-indigo-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Initial Stock</label>
+                  <label className="block text-slate-300 font-medium mb-1">Initial Stock</label>
                   <input
                     type="number"
                     min="0"
                     value={newVarStock}
                     onChange={(e) => setNewVarStock(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white font-bold"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-950/50 border border-slate-800 text-white font-semibold focus:border-indigo-500"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-zinc-300 font-semibold mb-1">Price Delta (+₹)</label>
+                  <label className="block text-slate-300 font-medium mb-1">Price Delta (+₹)</label>
                   <input
                     type="number"
                     value={newVarDelta}
                     onChange={(e) => setNewVarDelta(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-[#0a0b0e] border border-[#272b3b] text-white font-mono"
+                    className="w-full px-3 py-2 rounded-lg bg-slate-950/50 border border-slate-800 text-white font-mono focus:border-indigo-500"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end gap-2 pt-3 border-t border-[#1f2128]">
+              <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-3 py-1.5 rounded-xl bg-zinc-800 text-zinc-300"
+                  className="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300 font-medium hover:bg-slate-750"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={creating}
-                  className="px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#f5d376] to-[#e5c158] text-black font-bold uppercase"
+                  className="px-4 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs disabled:opacity-50"
                 >
                   {creating ? 'Saving...' : 'Add Variant'}
                 </button>

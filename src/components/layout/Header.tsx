@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Search, Plus, ExternalLink, ShieldCheck, UserCheck, Menu } from 'lucide-react';
+import { Search, Plus, ExternalLink, UserCheck, Menu } from 'lucide-react';
 
 interface HeaderProps {
   onToggleMobileMenu?: () => void;
@@ -19,27 +19,29 @@ export function Header({ onToggleMobileMenu }: HeaderProps) {
   };
 
   return (
-    <header className="h-20 bg-[#0e0f14]/80 backdrop-blur-xl border-b border-[#1f2128] sticky top-0 z-30 px-4 md:px-6 flex items-center justify-between">
+    <header className="h-16 bg-slate-900/80 backdrop-blur-md border-b border-slate-800/80 sticky top-0 z-30 px-4 md:px-6 flex items-center justify-between">
       {/* Search trigger & Mobile Menu */}
-      <div className="flex items-center gap-2.5 flex-1 max-w-md mr-2">
+      <div className="flex items-center gap-2.5 flex-1 max-w-md mr-4">
         {onToggleMobileMenu && (
           <button
             onClick={onToggleMobileMenu}
-            className="md:hidden p-2 rounded-xl bg-[#14161f] border border-[#232634] text-zinc-400 hover:text-[#e5c158] transition"
+            className="md:hidden p-2 rounded-lg bg-slate-800/60 border border-slate-700/60 text-slate-400 hover:text-slate-200 transition"
             title="Open Menu"
+            type="button"
           >
-            <Menu className="w-5 h-5" />
+            <Menu className="w-4 h-4" />
           </button>
         )}
         <button
           onClick={openCommandPalette}
-          className="w-full flex items-center justify-between px-3 md:px-4 py-2.5 rounded-xl bg-[#14161f] border border-[#232634] text-zinc-400 hover:border-[#e5c158]/50 hover:text-zinc-200 transition text-sm shadow-sm group"
+          type="button"
+          className="w-full flex items-center justify-between px-3.5 py-2 rounded-lg bg-slate-950/40 border border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200 transition text-sm group"
         >
           <div className="flex items-center gap-2.5">
-            <Search className="w-4 h-4 text-[#e5c158] group-hover:scale-110 transition" />
-            <span className="truncate">Search products, orders...</span>
+            <Search className="w-4 h-4 text-slate-400 group-hover:text-indigo-400 transition" />
+            <span className="truncate text-xs md:text-sm">Search products, orders, customers...</span>
           </div>
-          <div className="hidden sm:flex items-center gap-1 font-mono text-[11px] bg-[#1d202d] text-zinc-400 px-2 py-0.5 rounded border border-[#2c3044]">
+          <div className="hidden sm:flex items-center gap-1 font-mono text-[10px] bg-slate-800/80 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700/60">
             <span>⌘</span>
             <span>K</span>
           </div>
@@ -47,14 +49,14 @@ export function Header({ onToggleMobileMenu }: HeaderProps) {
       </div>
 
       {/* Right Actions */}
-      <div className="flex items-center gap-3 md:gap-4">
-        {/* Quick New Drop button */}
+      <div className="flex items-center gap-3">
+        {/* Quick Add Product button */}
         <Link
           href="/products/new"
-          className="flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 rounded-xl bg-gradient-to-r from-[#f5d376] to-[#e5c158] hover:from-[#fbe294] hover:to-[#edd06f] text-black font-semibold text-xs tracking-wider uppercase transition shadow-md shadow-[#e5c158]/10 hover:shadow-[#e5c158]/25 shrink-0"
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs transition shadow-sm shadow-indigo-600/20 shrink-0"
         >
-          <Plus className="w-4 h-4" />
-          <span className="hidden xs:inline">New Drop</span>
+          <Plus className="w-3.5 h-3.5" />
+          <span className="hidden xs:inline">Add Product</span>
         </Link>
 
         {/* View Storefront Link */}
@@ -62,26 +64,26 @@ export function Header({ onToggleMobileMenu }: HeaderProps) {
           href={process.env.NEXT_PUBLIC_STOREFRONT_URL || 'http://localhost:3000'}
           target="_blank"
           rel="noreferrer"
-          className="hidden md:flex items-center gap-2 px-3 py-2 rounded-xl bg-[#14161f] border border-[#232634] hover:bg-[#1a1d29] text-zinc-300 text-xs font-medium transition"
+          className="hidden md:flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800/50 border border-slate-700/60 hover:bg-slate-800 text-slate-300 text-xs font-medium transition"
           title="Open BroHood Customer Storefront"
         >
-          <ExternalLink className="w-3.5 h-3.5 text-[#e5c158]" />
-          <span>Storefront</span>
+          <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+          <span>View Store</span>
         </a>
 
         {/* Admin Profile Pill */}
-        <div className="flex items-center gap-3 pl-3 border-l border-[#222533]">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#1b1e2a] to-[#25293d] border border-[#32364e] flex items-center justify-center text-[#e5c158] shadow-sm">
+        <div className="flex items-center gap-2.5 pl-3 border-l border-slate-800">
+          <div className="w-8 h-8 rounded-lg bg-indigo-950/60 border border-indigo-800/50 flex items-center justify-center text-indigo-400 shadow-sm">
             <UserCheck className="w-4 h-4" />
           </div>
           <div className="hidden sm:block text-left">
-            <div className="flex items-center gap-1.5">
-              <span className="text-xs font-bold text-white tracking-wide">BROHOOD</span>
-              <span className="text-[9px] font-mono uppercase px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                HQ
+            <div className="flex items-center gap-1.5 leading-tight">
+              <span className="text-xs font-semibold text-slate-200">Admin</span>
+              <span className="text-[9px] font-medium uppercase px-1 py-0.2 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                Staff
               </span>
             </div>
-            <span className="text-[11px] text-zinc-400">Master Operations</span>
+            <span className="text-[11px] text-slate-400">Store Manager</span>
           </div>
         </div>
       </div>

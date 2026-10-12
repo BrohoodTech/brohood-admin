@@ -10,7 +10,6 @@ import {
   Layers,
   ArrowUpRight,
   RotateCcw,
-  Sparkles,
 } from 'lucide-react';
 import {
   AreaChart,
@@ -54,103 +53,127 @@ export default function AnalyticsPage() {
   const kpis = data?.kpis || {};
 
   return (
-    <div className="space-y-8 pb-12">
+    <div className="space-y-6 pb-12">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1f2128] pb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#e5c158] font-bold">
-              PERFORMANCE METRICS
+            <span className="text-xs font-semibold uppercase tracking-wider text-indigo-400">
+              Performance Reports
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white mt-1">
+          <h1 className="text-2xl font-bold tracking-tight text-white mt-1">
             Revenue & Sales Analytics
           </h1>
-          <p className="text-xs text-zinc-400 mt-1">
-            Financial telemetry, payment channel breakdown, and category conversion rates.
+          <p className="text-xs text-slate-400 mt-1">
+            Track daily store revenue, average customer order size, stock valuation, and payment methods.
           </p>
         </div>
 
         <button
           onClick={loadData}
-          className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#14161f] border border-[#232634] hover:bg-[#1a1d29] text-zinc-300 text-xs font-medium transition cursor-pointer self-start sm:self-auto"
+          className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-300 text-xs font-medium transition cursor-pointer self-start sm:self-auto"
         >
-          <RotateCcw className="w-3.5 h-3.5 text-[#e5c158]" />
-          <span>Refresh Analytics</span>
+          <RotateCcw className="w-3.5 h-3.5 text-slate-400" />
+          <span>Refresh Data</span>
         </button>
       </div>
 
       {/* Highlights Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-        <div className="bg-[#121318] border border-[#222533] rounded-2xl p-5">
-          <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider block">
-            Total Gross Revenue
-          </span>
-          <p className="text-3xl font-black text-white mt-2 font-mono">{formatINR(kpis.grossRevenue)}</p>
-          <p className="text-[11px] text-emerald-400 mt-2">Delivered Cash + Verified Prepaid</p>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              Total Revenue
+            </span>
+            <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-400">
+              <IndianRupee className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-white mt-3 font-mono">{formatINR(kpis.grossRevenue || 0)}</p>
+          <p className="text-[11px] text-emerald-400 mt-1.5 flex items-center gap-1 font-medium">
+            Delivered Cash + Verified Prepaid
+          </p>
         </div>
 
-        <div className="bg-[#121318] border border-[#222533] rounded-2xl p-5">
-          <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider block">
-            Average Order Value (AOV)
-          </span>
-          <p className="text-3xl font-black text-white mt-2 font-mono">
+        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              Average Order Value
+            </span>
+            <div className="p-2 rounded-lg bg-sky-500/10 text-sky-400">
+              <TrendingUp className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-white mt-3 font-mono">
             {formatINR(kpis.totalOrders > 0 ? Math.round(kpis.grossRevenue / kpis.totalOrders) : 0)}
           </p>
-          <p className="text-[11px] text-zinc-400 mt-2">Per checkout transaction</p>
+          <p className="text-[11px] text-slate-400 mt-1.5 font-medium">Across {kpis.totalOrders || 0} total orders</p>
         </div>
 
-        <div className="bg-[#121318] border border-[#222533] rounded-2xl p-5">
-          <span className="text-xs font-bold text-zinc-400 uppercase tracking-wider block">
-            Active Inventory Valuation
-          </span>
-          <p className="text-3xl font-black text-[#e5c158] mt-2 font-mono">
-            {formatINR(kpis.inventoryValue)}
+        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              Stock Retail Value
+            </span>
+            <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400">
+              <Layers className="w-4 h-4" />
+            </div>
+          </div>
+          <p className="text-2xl font-bold text-slate-100 mt-3 font-mono">
+            {formatINR(kpis.inventoryValue || 0)}
           </p>
-          <p className="text-[11px] text-zinc-400 mt-2">Warehouse retail holding value</p>
+          <p className="text-[11px] text-slate-400 mt-1.5 font-medium">Total active warehouse inventory</p>
         </div>
       </div>
 
       {/* Detailed Revenue Area Chart */}
-      <div className="bg-[#121318] border border-[#222533] rounded-2xl p-6">
-        <h2 className="text-base font-bold text-white tracking-wide mb-1">
-          30-Day Daily Gross Revenue Curve
-        </h2>
-        <p className="text-xs text-zinc-400 mb-6">Daily sales turnover in Indian Rupees (₹)</p>
+      <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 sm:p-6 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+          <div>
+            <h2 className="text-sm font-semibold text-white tracking-wide">
+              30-Day Daily Revenue Trend
+            </h2>
+            <p className="text-xs text-slate-400 mt-0.5">Daily sales turnover in Indian Rupees (₹)</p>
+          </div>
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800/80 border border-slate-700/60 text-slate-300 text-xs font-mono self-start sm:self-auto">
+            <span>Last 30 Days</span>
+          </div>
+        </div>
 
-        <div className="h-80 w-full">
+        <div className="h-72 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={data?.revenueTrend || []}>
               <defs>
-                <linearGradient id="goldArea" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#e5c158" stopOpacity={0.5} />
-                  <stop offset="95%" stopColor="#e5c158" stopOpacity={0.0} />
+                <linearGradient id="indigoRevenue" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#6366f1" stopOpacity={0.4} />
+                  <stop offset="95%" stopColor="#6366f1" stopOpacity={0.0} />
                 </linearGradient>
               </defs>
-              <XAxis dataKey="date" stroke="#52525b" fontSize={11} tickLine={false} />
+              <XAxis dataKey="date" stroke="#64748b" fontSize={11} tickLine={false} />
               <YAxis
-                stroke="#52525b"
+                stroke="#64748b"
                 fontSize={11}
                 tickLine={false}
                 tickFormatter={(val) => `₹${val >= 1000 ? `${(val / 1000).toFixed(0)}k` : val}`}
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: '#181a24',
-                  borderColor: '#2e3347',
-                  borderRadius: '12px',
-                  color: '#f3f4f6',
+                  backgroundColor: '#0f172a',
+                  borderColor: '#334155',
+                  borderRadius: '8px',
+                  color: '#f8fafc',
                   fontSize: '12px',
                 }}
-                formatter={(val: any) => [formatINR(Number(val)), 'Turnover']}
+                formatter={(val: any) => [formatINR(Number(val)), 'Daily Revenue']}
               />
               <Area
                 type="monotone"
                 dataKey="revenue"
-                stroke="#e5c158"
-                strokeWidth={3}
-                fill="url(#goldArea)"
+                stroke="#6366f1"
+                strokeWidth={2.5}
+                fill="url(#indigoRevenue)"
               />
             </AreaChart>
           </ResponsiveContainer>
@@ -160,11 +183,13 @@ export default function AnalyticsPage() {
       {/* Grid: Payment Method vs Category Distribution */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Payment Channels */}
-        <div className="bg-[#121318] border border-[#222533] rounded-2xl p-6">
-          <h2 className="text-base font-bold text-white tracking-wide mb-1">Payment Method Share</h2>
-          <p className="text-xs text-zinc-400 mb-6">Razorpay UPI & Cards vs Cash on Delivery</p>
+        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 sm:p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <h2 className="text-sm font-semibold text-white tracking-wide">Payment Methods</h2>
+            <p className="text-xs text-slate-400 mt-0.5">Online prepaid (Razorpay/UPI/Cards) vs Cash on Delivery</p>
+          </div>
 
-          <div className="h-60 w-full">
+          <div className="h-56 w-full my-4">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -172,56 +197,70 @@ export default function AnalyticsPage() {
                   cx="50%"
                   cy="50%"
                   innerRadius={60}
-                  outerRadius={90}
-                  paddingAngle={6}
+                  outerRadius={85}
+                  paddingAngle={5}
                   dataKey="count"
                 >
-                  <Cell fill="#e5c158" />
-                  <Cell fill="#38bdf8" />
+                  <Cell fill="#6366f1" />
+                  <Cell fill="#0ea5e9" />
                 </Pie>
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#181a24',
-                    borderColor: '#2e3347',
-                    borderRadius: '12px',
-                    color: '#f3f4f6',
+                    backgroundColor: '#0f172a',
+                    borderColor: '#334155',
+                    borderRadius: '8px',
+                    color: '#f8fafc',
+                    fontSize: '12px',
                   }}
                 />
               </PieChart>
             </ResponsiveContainer>
           </div>
 
-          <div className="space-y-2 pt-4 border-t border-[#1f2128]">
-            {(data?.paymentMethodData || []).map((p: any, idx: number) => (
-              <div key={idx} className="flex justify-between items-center text-xs">
-                <span className="text-zinc-300">{p.name}</span>
-                <span className="font-mono font-bold text-white">{p.percentage}%</span>
-              </div>
-            ))}
+          <div className="space-y-2 pt-4 border-t border-slate-800">
+            {(data?.paymentMethodData || []).map((p: any, idx: number) => {
+              const colorDot = idx === 0 ? 'bg-indigo-500' : 'bg-sky-400';
+              return (
+                <div key={idx} className="flex justify-between items-center text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className={`w-2.5 h-2.5 rounded-full ${colorDot}`} />
+                    <span className="text-slate-300 font-medium">{p.name}</span>
+                  </div>
+                  <span className="font-mono font-semibold text-white">{p.percentage}%</span>
+                </div>
+              );
+            })}
           </div>
         </div>
 
         {/* Category Contribution */}
-        <div className="bg-[#121318] border border-[#222533] rounded-2xl p-6">
-          <h2 className="text-base font-bold text-white tracking-wide mb-1">Category Sales Ratio</h2>
-          <p className="text-xs text-zinc-400 mb-6">Watches vs Sneakers vs Goggles vs Apparel</p>
+        <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-5 sm:p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <h2 className="text-sm font-semibold text-white tracking-wide">Sales by Category</h2>
+            <p className="text-xs text-slate-400 mt-0.5">Order volume distributed across product categories</p>
+          </div>
 
-          <div className="h-60 w-full">
+          <div className="h-56 w-full my-4">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data?.categoryChartData || []}>
-                <XAxis dataKey="name" stroke="#71717a" fontSize={11} tickLine={false} />
-                <YAxis stroke="#71717a" fontSize={11} tickLine={false} />
+                <XAxis dataKey="name" stroke="#64748b" fontSize={11} tickLine={false} />
+                <YAxis stroke="#64748b" fontSize={11} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#181a24',
-                    borderColor: '#2e3347',
-                    borderRadius: '12px',
-                    color: '#f3f4f6',
+                    backgroundColor: '#0f172a',
+                    borderColor: '#334155',
+                    borderRadius: '8px',
+                    color: '#f8fafc',
+                    fontSize: '12px',
                   }}
                 />
-                <Bar dataKey="value" fill="#e5c158" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="value" fill="#6366f1" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
+          </div>
+
+          <div className="pt-4 border-t border-slate-800 text-xs text-slate-400">
+            <span>Category volume is updated automatically from all processed checkout orders.</span>
           </div>
         </div>
       </div>

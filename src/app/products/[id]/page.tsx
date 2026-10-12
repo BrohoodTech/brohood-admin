@@ -31,8 +31,8 @@ export default function EditProductPage({ params }: { params: Promise<{ id: stri
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh] gap-3">
-        <div className="w-10 h-10 border-2 border-[#e5c158] border-t-transparent rounded-full animate-spin" />
-        <span className="text-xs text-zinc-500 uppercase tracking-widest">Loading Product Details...</span>
+        <div className="w-10 h-10 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+        <span className="text-xs text-slate-400 font-medium">Loading product details...</span>
       </div>
     );
   }

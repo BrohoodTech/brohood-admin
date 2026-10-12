@@ -3,8 +3,8 @@ import './globals.css';
 import { AdminLayout } from '@/components/layout/AdminLayout';
 
 export const metadata: Metadata = {
-  title: 'BroHood Admin & Operations Command Center',
-  description: 'Master operations dashboard for luxury watches, sneakers, designer goggles, and streetwear',
+  title: 'BroHood Store Admin',
+  description: 'E-commerce administration and order management for BroHood',
 };
 
 export default function RootLayout({
@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className="bg-[#0a0b0e] text-zinc-100 antialiased selection:bg-[#e5c158]/30 selection:text-[#fbe294]">
+      <body className="bg-[#0b0f19] text-slate-100 antialiased selection:bg-indigo-500/30 selection:text-indigo-200">
         <AdminLayout>{children}</AdminLayout>
       </body>
     </html>

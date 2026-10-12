@@ -1,16 +1,17 @@
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://kqbbvbvxlegqtguoyhfu.supabase.co';
-// Priority: SUPABASE_SERVICE_ROLE_KEY > NEXT_PUBLIC_SUPABASE_SECRET_KEY > NEXT_PUBLIC_SUPABASE_ANON_KEY
-const supabaseServiceKey =
+const rawKey =
   process.env.SUPABASE_SERVICE_ROLE_KEY ||
   process.env.NEXT_PUBLIC_SUPABASE_SECRET_KEY ||
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-  '';
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-if (!supabaseServiceKey) {
+if (!rawKey) {
   console.warn('Warning: Supabase service role key is not configured.');
 }
+
+// Fallback dummy key prevents createClient from crashing during build-time static evaluation
+const supabaseServiceKey = rawKey || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.dummy_build_key';
 
 /**
  * Server-side Supabase Admin Client.
